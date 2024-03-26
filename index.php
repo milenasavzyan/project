@@ -1,11 +1,3 @@
-<?php
-$mysqli = mysqli_connect('localhost', 'root', '', 'tasks');
-$query = 'SELECT * FROM task1';
-$result = mysqli_query($mysqli, $query);
-
-?>
-
-
 
 
 
@@ -23,6 +15,7 @@ $result = mysqli_query($mysqli, $query);
                     <h1>Sign Up</h1>
                     <hr>
                     <div class = "border">
+                        <input type = "hidden" name = "id">
                         <input type = "text" name = "name" placeholder="name"><br>
                         <input type = "text" name = "surname" placeholder="surname"><br>
                         <input type = "email" name = "email" placeholder="email"><br>

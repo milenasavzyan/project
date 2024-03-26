@@ -1,28 +1,22 @@
 <?php
-var_dump($_POST);
-if(isset($_POST['submit'])){
-    $mysqli = mysqli_connect('localhost', 'root', '', 'tasks');
-    $x = time();
+session_start();
+require_once 'db.php';
 
-    if(empty($_POST['id'])){
-        $query = 'INSERT INTO task1 (name, surname, email, password, created, updated)
-				  VALUES ("'.$_POST['name'].'", "'.$_POST['surname'].'", "'.$_POST['email'].'",  "'.password_hash($_POST['password'], PASSWORD_DEFAULT).'", "'.$x.'", "'.$x.'")';
-        mysqli_query($mysqli, $query);
-        $xyz = mysqli_insert_id($mysqli);
-        echo '<br>'.$xyz;
+if (isset($_POST['submit'])) {
+    $db = new Database();
 
+    $name = $_POST['name'];
+    $surname = $_POST['surname'];
+    $email = $_POST['email'];
+    $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+    $created = time();
+    $updated = time();
+
+    $userId = $db->insertUser($name, $surname, $email, $password, $created, $updated);
+    if ($userId) {
+        echo '<br>' . $userId;
     }
-
-
 }
 
-if(isset($_POST['delete'])){
-    $mysqli = mysqli_connect('localhost', 'root', '', 'tasks');
-    $query = 'DELETE FROM task1 WHERE id='.$_POST['id'];
-    mysqli_query($mysqli, $query);
-}
-
-header('Location:index.php');
-
-
-?>
+header('Location: index.php');
+exit();
